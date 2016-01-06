@@ -1,38 +1,6 @@
 // this function takes the question object returned by the StackOverflow request
 // and returns new result to be appended to DOM
-//var showQuestion = function(question) {
-//
-//	// clone our result template code
-//	var result = $('.templates .question').clone();
-//	
-//	// Set the question properties in result
-//	var questionElem = result.find('.question-text a');
-//	questionElem.attr('href', question.link);
-//	questionElem.text(question.title);
-//
-//	// set the date asked property in result
-//	var asked = result.find('.asked-date');
-//	var date = new Date(1000*question.creation_date);
-//	asked.text(date.toString());
-//
-//	// set the .viewed for question property in result
-//	var viewed = result.find('.viewed');
-//	viewed.text(question.view_count);
-//
-//	// set some properties related to asker
-//	var asker = result.find('.asker');
-//	asker.html('<p>Name: <a target="_blank" '+
-//		'href=http://stackoverflow.com/users/' + question.owner.user_id + ' >' +
-//		question.owner.display_name +
-//		'</a></p>' +
-//		'<p>Reputation: ' + question.owner.reputation + '</p>'
-//	);
-//console.log("yo");
-//	return result;
-//    
-//};
-
-var showTopQuestions = function(question) {
+var showQuestion = function(question) {
 
 	// clone our result template code
 	var result = $('.templates .question').clone();
@@ -59,9 +27,41 @@ var showTopQuestions = function(question) {
 		'</a></p>' +
 		'<p>Reputation: ' + question.owner.reputation + '</p>'
 	);
-    
+
 	return result;
+    
 };
+
+//var showTopQuestions = function(question) {
+//
+//	// clone our result template code
+//	var result = $('.templates .question').clone();
+//	
+//	// Set the question properties in result
+//	var questionElem = result.find('.question-text a');
+//	questionElem.attr('href', question.link);
+//	questionElem.text(question.title);
+//
+//	// set the date asked property in result
+//	var asked = result.find('.asked-date');
+//	var date = new Date(1000*question.creation_date);
+//	asked.text(date.toString());
+//
+//	// set the .viewed for question property in result
+//	var viewed = result.find('.viewed');
+//	viewed.text(question.view_count);
+//
+//	// set some properties related to asker
+//	var asker = result.find('.asker');
+//	asker.html('<p>Name: <a target="_blank" '+
+//		'href=http://stackoverflow.com/users/' + question.owner.user_id + ' >' +
+//		question.owner.display_name +
+//		'</a></p>' +
+//		'<p>Reputation: ' + question.owner.reputation + '</p>'
+//	);
+//    
+//	return result;
+//};
 
 var showInspiration = function(item) {
 //    var result = $('.templates .inspiration').clone();
@@ -131,7 +131,7 @@ var getUnanswered = function(tags) {
 		//$.each is a higher order function. It takes an array and a function as an argument.
 		//The function is executed once for each item in the array.
 		$.each(result.items, function(i, item) {
-			var question = showTopQuestions(item);
+			var question = showQuestion(item);
 			$('.results').append(question);
 		});
 	})
@@ -159,9 +159,8 @@ var getInspiration = function(tag) {
 		var searchResults = showSearchResults(tag, result.items.length);
 		$('.search-results').html(searchResults);
 		
-		$.each(result.items, function(index, item) {
+		$.each(result.items, function(i, item) {
 			var inspiration = showInspiration(item);
-            
 			$('.results').append(inspiration);
 		});
 	})
