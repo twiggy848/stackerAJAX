@@ -144,11 +144,11 @@ var getUnanswered = function(tags) {
 
 var getInspiration = function(tag) {
 	
-    var url = "http://api.stackexchange.com/2.2" + tag + "/top-answerers/all_time";
+    var url = "http://api.stackexchange.com/2.2/tags/" + tag + "/top-answerers/all_time";
     var request = {
         site: 'stackoverflow'
     };
-    
+    console.log(url);
 	// the parameters we need to pass in our request to StackOverflow's API
 	var result = $.ajax({
 		url: url,
@@ -156,6 +156,7 @@ var getInspiration = function(tag) {
 		dataType: "jsonp",//use jsonp to avoid cross origin issues
 		type: "GET"  
 	}).done(function(result) { //this waits for the ajax to return with a succesful promise object
+        console.log(result.items);
 		var searchResults = showSearchResults(tag, result.items.length);
 		$('.search-results').html(searchResults);
 		
